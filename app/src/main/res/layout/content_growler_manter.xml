@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:showIn="@layout/activity_growler_manter"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnLerQrCode"
+            android:text="Ler QrCode"
+            android:layout_gravity="right"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnHistorico"
+            android:text="Historico"
+            android:layout_gravity="right"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Identificador"
+            android:id="@+id/textView2"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtIdentificadorGrowler"
+            android:inputType="number"
+            android:digits="0123456789"
+            android:maxLength="45"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descrição/Nome"
+            android:id="@+id/textView4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtDescricaoGrowler"
+            android:layout_gravity="right"
+            android:maxLength="45"
+            android:maxLines="2"
+            android:inputType="text"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome da cerveja"
+            android:id="@+id/txtDescricaoCerveja"
+            android:visibility="visible"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtDescricaoCerveja"
+            android:layout_gravity="right"
+            android:maxLength="45"
+            android:maxLines="2"
+            android:inputType="text"
+            android:visibility="visible"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temperatura ideal"
+            android:id="@+id/txtTemperaturaIdeal"
+            android:visibility="visible"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtVlrTemperaturaIdeal"
+            android:inputType="number"
+            android:digits="0123456789.-"
+            android:maxLength="45"
+            android:visibility="visible"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Avisar quando atingir temperatura ideal"
+            android:id="@+id/chkAlarmeTemperatura"
+            android:visibility="visible"
+            />
+    </LinearLayout>
+</ScrollView>

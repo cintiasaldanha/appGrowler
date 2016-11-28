@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Meu Growler</string>
+    <string name="action_settings">Configurações</string>
+    <string name="action_excluir">Excluir</string>
+    <string name="action_salvar">Salvar</string>
+    <string name="action_monitorar">Monitorar</string>
+    <string name="action_listarhistorico">Histórico</string>
+    <string name="titulo_MainActivity">Meu Growler</string>
+    <string name="title_activity_growler_manter">Growler</string>
+    <string name="title_activity_growler_historico">Temperaturas</string>
+    <string name="title_activity_growler_consultar">Detalhes</string>
+    <string name="action_historico">Histórico</string>
+    <string name="action_edit">Alterar</string>
+    <string name="action_salvar_item">Salvar</string>
+    <string name="action_esvaziar">Esvaziar</string>
+    <string name="title_activity_growler_estatistica">Estatística</string>
+    <string name="action_refresh">Atualizar</string>
+    <string name="title_activity_growler_config">Configurações</string>
+    <string name="title_activity_growler_mensagem">Meu Growler</string>
+    <string name="action_compartilhar">Compartilhar</string>
+</resources>

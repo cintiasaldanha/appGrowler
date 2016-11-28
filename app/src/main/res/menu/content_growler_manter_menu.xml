@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.iot.trabalho.grupo.appgrowler.GrowlerManterActivity">
+    <item
+        android:id="@+id/action_salvar_item"
+        android:orderInCategory="100"
+        android:title="@string/action_salvar_item"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_floppy"
+        />
+
+    <item
+        android:id="@+id/action_historico"
+        android:orderInCategory="101"
+        android:title="@string/action_historico"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_chart_line"
+        android:visible="true"
+        />
+
+    <item android:id="@+id/action_esvaziar"
+        android:title="@string/action_esvaziar"
+        android:orderInCategory="101"
+        android:icon="@drawable/ic_glass_mug"
+        app:showAsAction="ifRoom"
+        android:visible="true"
+        />
+</menu>

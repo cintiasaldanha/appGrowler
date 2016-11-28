@@ -1,0 +1,49 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.iot.trabalho.grupo.appgrowler.MainActivity">
+
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="100"
+        android:title="@string/action_refresh"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_cached"
+        />
+
+    <item android:id="@+id/action_excluir"
+        android:title="@string/action_excluir"
+        android:orderInCategory="101"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="always"
+        android:visible="false"
+        />
+
+    <item
+        android:id="@+id/action_edit"
+        android:orderInCategory="102"
+        android:title="@string/action_edit"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_edit"
+        android:visible="false"
+        />
+
+    <item
+        android:id="@+id/action_historico"
+        android:orderInCategory="103"
+        android:title="@string/action_historico"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_chart_line"
+        android:visible="false"
+        />
+
+
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="104"
+        android:title="@string/action_settings"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="ifRoom"
+        />
+</menu>
