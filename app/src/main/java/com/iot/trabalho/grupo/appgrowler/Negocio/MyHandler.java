@@ -53,7 +53,7 @@ public class MyHandler extends NotificationsHandler {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(ctx)
-                        .setSmallIcon(R.mipmap.ic_growler)
+                        .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Notification Hub Demo")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))

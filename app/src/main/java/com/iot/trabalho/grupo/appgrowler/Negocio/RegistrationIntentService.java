@@ -51,6 +51,7 @@ public class RegistrationIntentService extends IntentService {
                 sharedPreferences.edit().putString("registrationID", regID ).apply();
             } else {
                 resultString = "Previously Registered Successfully - RegId : " + regID;
+                Log.i(TAG, resultString);
             }
         } catch (Exception e) {
             Log.e(TAG, resultString="Failed to complete token refresh", e);
