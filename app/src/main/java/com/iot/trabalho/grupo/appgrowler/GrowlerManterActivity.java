@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,11 +21,20 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.iot.trabalho.grupo.appgrowler.Modelo.APIService;
+import com.iot.trabalho.grupo.appgrowler.Modelo.EstruturaRaiz;
 import com.iot.trabalho.grupo.appgrowler.Modelo.GrowlerApp;
 import com.iot.trabalho.grupo.appgrowler.Modelo.GrowlerBD;
+import com.iot.trabalho.grupo.appgrowler.Modelo.GrowlerMonitoracaoInclusao;
 import com.iot.trabalho.grupo.appgrowler.Negocio.AlarmManagerBroadcastReceiver;
 import com.iot.trabalho.grupo.appgrowler.Negocio.GrowlerNegocio;
 import com.iot.trabalho.grupo.appgrowler.Util.Global;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GrowlerManterActivity extends AppCompatActivity {
     private final Context context = this;
@@ -41,6 +51,7 @@ public class GrowlerManterActivity extends AppCompatActivity {
     private CheckBox chkAlarmeTemperatura;
     private TextView txtDescricaoCerveja;
     private TextView txtTemperaturaIdeal;
+    private final String TAG = ">>>>POST MONITORACAO: ";
 
 
     @Override
@@ -179,7 +190,10 @@ public class GrowlerManterActivity extends AppCompatActivity {
                         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                //to do cintia
                                 IniciarMonitoracaoGrowler();
+                                //IniciarMonitoracaoGrowlerRetrofit();
+                                ///
                                 //((Activity)context).finish();
                                 //Intent intent = new Intent(context, MainActivity.class);
                                 //context.startActivity(intent);
@@ -377,21 +391,32 @@ public class GrowlerManterActivity extends AppCompatActivity {
         Integer IdGrowler = Integer.parseInt(strIdtGrowler);
         Double TmpIdeal = Double.parseDouble(edtVlrTemperaturaIdeal.getText().toString());
         Boolean bAlarmar = (chkAlarmeTemperatura.isChecked());
+        EstruturaRaiz estruturaRaiz;
 
-        if (Global.getBooleanPrefsByKey(this,Global.PREF_MONITORAR_LIMPAR_HISTORICO))
-            GrowlerNegocio.Iniciargrowler(IdGrowler,TmpIdeal,bAlarmar);
+        try {
+            if (Global.getBooleanPrefsByKey(this, Global.PREF_MONITORAR_LIMPAR_HISTORICO)|| true) {
+                estruturaRaiz = GrowlerNegocio.Iniciargrowler(IdGrowler, TmpIdeal, bAlarmar);
+                //Execução da solicitação de monitoração realizada com sucesso
+                if (estruturaRaiz.IdcErr == 0) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Alteração realizada com sucesso. Iniciando monitoração do Growler " + strIdtGrowler + " !";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
 
-        Context context = getApplicationContext();
-        CharSequence text = "Alteração realizada com sucesso. Iniciando monitoração do Growler " + strIdtGrowler + " !";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-        if(alarm != null){
-            alarm.SetAlarm(context,strIdtGrowler,TmpIdeal);
-        }else{
-            Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
+                    if (alarm != null) {
+                        alarm.SetAlarm(context, strIdtGrowler, TmpIdeal);
+                    } else {
+                        Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
         }
+        catch (Exception e) {
+            Log.e(TAG, "Erro ao executar GrowlerNegocio.IniciarGrowler", e);
+
+        }
+
 
     }
 
@@ -432,6 +457,62 @@ public class GrowlerManterActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private void IniciarMonitoracaoGrowlerRetrofit() {
+
+        //Utilização de Retrofit para executar o post correspondente
+        //ao início da monitoração do growler
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        APIService service = retrofit.create(APIService.class);
+
+        GrowlerMonitoracaoInclusao growlerMonitoracaoInclusao = new GrowlerMonitoracaoInclusao();
+
+        growlerMonitoracaoInclusao.setIdGrowler(strIdtGrowler);
+        growlerMonitoracaoInclusao.setIndNotficacaoTemp((chkAlarmeTemperatura.isChecked()? 1: 0));
+        growlerMonitoracaoInclusao.setTempIdeal(Double.parseDouble(edtVlrTemperaturaIdeal.getText().toString()));
+        growlerMonitoracaoInclusao.setIdNotificacao("dHjXf2hZ0rI:APA91bGJCNtMPugyVM8iqw06ZT-CV8MFk7WDIykM1iSgVvSXX2dIazjxajvKWYzIVnDib3pqcviPReTcmlfC0ikNgySgFCYKlsdqlpCmjWxilKeGO4NTJ8mzc_jIYn3zyXBGj0F_DsjL");
+
+        //if (Global.getBooleanPrefsByKey(this,Global.PREF_MONITORAR_LIMPAR_HISTORICO))
+        //    GrowlerNegocio.Iniciargrowler(IdGrowler,TmpIdeal,bAlarmar);
+
+        try {
+            Call<EstruturaRaiz> call = service.incluirMonitoracaoGrowler(growlerMonitoracaoInclusao);
+            call.enqueue(new Callback<EstruturaRaiz>() {
+                @Override
+                public void onResponse(Call<EstruturaRaiz> call, Response<EstruturaRaiz> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(context, "\"Alteração realizada com sucesso. Iniciando monitoração do Growler \" + strIdtGrowler + \" !\"", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "Growler cadastrado com sucesso");
+
+                        Log.e(TAG, "IndicadorErro: " + response.body().IdcErr.toString());
+
+
+                    } else {
+                        Toast.makeText(context, "Erro: Growler não cadastrado", Toast.LENGTH_LONG).show();
+                        Log.e(TAG, "Erro: Growler não cadastrado");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<EstruturaRaiz> call, Throwable t) {
+                    Log.e(TAG, "falha na inclusão do growler");
+                }
+            });
+            //finish();
+
+
+            //((Activity)context).finish();
+            //Intent intent = new Intent(context, MainActivity.class);
+            //context.startActivity(intent);
+        }
+        catch (Exception e) {
+            Log.e(TAG, "Erro ao realizar o post para inclusão da monitoração do growler", e);
+        }
     }
 
 }

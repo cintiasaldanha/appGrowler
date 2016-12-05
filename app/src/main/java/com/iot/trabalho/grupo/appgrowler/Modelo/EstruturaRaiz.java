@@ -8,11 +8,13 @@ public class EstruturaRaiz {
     public Integer IdcErr;
     public Integer CodErr;
     public String ExceptionMsg;
+    public String msg;
 
     public EstruturaRaiz() {
         this.IdcErr = 0;
         this.CodErr = 0;
         this.ExceptionMsg = "";
+        this.msg = "";
 
     }
 
@@ -20,11 +22,13 @@ public class EstruturaRaiz {
         this.IdcErr = idcErr;
         this.CodErr = codErr;
         this.ExceptionMsg = exceptionMsg;
+        //this.msg = msg;
     }
 
     @Override
     public String toString() {
-        return("IdcErr: " + IdcErr.toString() + ", " + "CodErr: " + CodErr.toString() + ", ExceptionMsg: " + ExceptionMsg);
+        return("IdcErr: " + IdcErr.toString() + ", " + "CodErr: " + CodErr.toString() +
+                ", ExceptionMsg: " + ExceptionMsg +", "+ "msg: " + msg);
     }
 }
 
