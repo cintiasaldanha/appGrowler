@@ -65,8 +65,8 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
             builder.setContentTitle("Meu Growler");
             builder.setContentText("Sua cerveja está na temperatura ideal!");
-            builder.setSmallIcon(R.mipmap.ic_growler);
-            builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_growler));
+            builder.setSmallIcon(R.mipmap.ic_launcher);
+            builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
             builder.setDefaults(Notification.DEFAULT_ALL);
             builder.setAutoCancel(true);
             builder.setContentIntent(p);

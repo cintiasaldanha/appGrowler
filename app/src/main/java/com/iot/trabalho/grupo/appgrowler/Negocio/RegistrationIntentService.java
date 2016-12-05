@@ -8,11 +8,12 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
+import com.iot.trabalho.grupo.appgrowler.Util.Global;
 import com.microsoft.windowsazure.messaging.NotificationHub;
 
 public class RegistrationIntentService extends IntentService {
 
-    private static final String TAG = "RegIntentService";
+    private static final String TAG = "RegIntentService>>>>>";
 
     private NotificationHub hub;
 
@@ -35,7 +36,8 @@ public class RegistrationIntentService extends IntentService {
             // Storing the registration id that indicates whether the generated token has been
             // sent to your server. If it is not stored, send the token to your server,
             // otherwise your server should have already received the token.
-            if ((regID=sharedPreferences.getString("registrationID", null)) == null) {
+            //if ((regID=sharedPreferences.getString(Global.PREF_REGISTRARION_ID, null)) == null) {
+            if ((regID=Global.getStringPrefsByKey(this,Global.PREF_REGISTRATION_ID)).equals("")) {
                 NotificationHub hub = new NotificationHub(NotificationSettings.HubName,
                         NotificationSettings.HubListenConnectionString, this);
                 Log.i(TAG, "Attempting to register with NH using token : " + token);
@@ -48,7 +50,8 @@ public class RegistrationIntentService extends IntentService {
 
                 resultString = "Registered Successfully - RegId : " + regID;
                 Log.i(TAG, resultString);
-                sharedPreferences.edit().putString("registrationID", regID ).apply();
+                //sharedPreferences.edit().putString(Global.PREF_REGISTRARION_ID, regID ).apply();
+                Global.putStringPrefs(this, Global.PREF_REGISTRATION_ID,regID);
             } else {
                 resultString = "Previously Registered Successfully - RegId : " + regID;
                 Log.i(TAG, resultString);

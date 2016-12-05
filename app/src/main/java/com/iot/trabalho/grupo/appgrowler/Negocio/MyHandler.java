@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
+import com.iot.trabalho.grupo.appgrowler.GrowlerMensagemActivity;
 import com.iot.trabalho.grupo.appgrowler.MainActivity;
 import com.iot.trabalho.grupo.appgrowler.R;
 import com.microsoft.windowsazure.notifications.NotificationsHandler;
@@ -39,22 +40,32 @@ public class MyHandler extends NotificationsHandler {
         it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         it.putExtra("CHAVE",strIdtGrowler);
         it.putExtra("TEMP_ATUAL",dblTemperaturaAtualGrowler.toString());
+        it.putExtra("MSG",msg);
         PendingIntent p = PendingIntent.getActivity(context, Integer.parseInt(strIdtGrowler), it, PendingIntent.FLAG_ONE_SHOT);
 */
-        Intent intent = new Intent(ctx, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        Intent it = new Intent(ctx, GrowlerMensagemActivity.class);
+        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        //it.putExtra("CHAVE",strIdtGrowler);
+        //it.putExtra("TEMP_ATUAL",dblTemperaturaAtualGrowler.toString());
+        it.putExtra("MSG",msg);
+        PendingIntent p = PendingIntent.getActivity(ctx, Integer.parseInt("13"), it, PendingIntent.FLAG_ONE_SHOT);
+
+
+        //Intent intent = new Intent(ctx, MainActivity.class);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         mNotificationManager = (NotificationManager)
                 ctx.getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0,
-                intent, PendingIntent.FLAG_ONE_SHOT);
+                it, PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(ctx)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Notification Hub Demo55555")
+                        .setContentTitle("Growler on the Cloud")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
                         .setSound(defaultSoundUri)

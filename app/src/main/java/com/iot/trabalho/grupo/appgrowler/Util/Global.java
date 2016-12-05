@@ -18,6 +18,8 @@ public class Global {
     public static String PREF_NOTIFICAR_VOZ = "NOTIFICAR_VOZ";
     public static String PREF_MONITORAR_LIMPAR_HISTORICO = "ESVAZIAR_LIMPAR_HISTORICO";
     public static String PREF_ESVAZIAR_LIMPAR_HISTORICO = "MONITORAR_LIMPAR_HISTORICO";
+    public static String PREF_REGISTRATION_ID = "registrationID";
+
     public static Context activitAnterior;
     public static String mensagemGenerica = "";
 

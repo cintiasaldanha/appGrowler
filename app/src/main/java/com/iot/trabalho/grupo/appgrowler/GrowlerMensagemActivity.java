@@ -22,7 +22,7 @@ public class GrowlerMensagemActivity extends AppCompatActivity implements TextTo
     String strTemperaturaAtual;
     private GrowlerBD growlerBD;
 
-    //No exemplo tinha mas não sei para que funciona
+    //
     private static final int REQUEST_CODE = 1234;
     // \/ Gerenciamento do app para conversar com o usuário
     private TextToSpeech mTts = null;
@@ -44,11 +44,12 @@ public class GrowlerMensagemActivity extends AppCompatActivity implements TextTo
         Bundle extras = getIntent().getExtras();
 
         if (extras!=null) {
-            strChaveGrowlerAtual = extras.getString("CHAVE");
-            strTemperaturaAtual = extras.getString("TEMP_ATUAL");
+            //strChaveGrowlerAtual = extras.getString("CHAVE");
+            //strTemperaturaAtual = extras.getString("TEMP_ATUAL");
+            strMensagemFala = extras.getString("MSG");
         }
 
-        ApresentarMensagem();
+        //ApresentarMensagem();
 
         mTts = new TextToSpeech(this, this);
         final String strTexto = "Temperatura ideal atingida";
