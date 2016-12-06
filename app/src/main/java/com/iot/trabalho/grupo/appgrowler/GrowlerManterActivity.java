@@ -21,20 +21,12 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.iot.trabalho.grupo.appgrowler.Modelo.APIService;
 import com.iot.trabalho.grupo.appgrowler.Modelo.EstruturaRaiz;
 import com.iot.trabalho.grupo.appgrowler.Modelo.GrowlerApp;
 import com.iot.trabalho.grupo.appgrowler.Modelo.GrowlerBD;
-import com.iot.trabalho.grupo.appgrowler.Modelo.GrowlerMonitoracaoInclusao;
 import com.iot.trabalho.grupo.appgrowler.Negocio.AlarmManagerBroadcastReceiver;
 import com.iot.trabalho.grupo.appgrowler.Negocio.GrowlerNegocio;
 import com.iot.trabalho.grupo.appgrowler.Util.Global;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GrowlerManterActivity extends AppCompatActivity {
     private final Context context = this;
@@ -394,7 +386,7 @@ public class GrowlerManterActivity extends AppCompatActivity {
         EstruturaRaiz estruturaRaiz;
 
         try {
-            if (Global.getBooleanPrefsByKey(this, Global.PREF_MONITORAR_LIMPAR_HISTORICO)|| true) {
+            if (Global.getBooleanPrefsByKey(this, Global.PREF_MONITORAR_LIMPAR_HISTORICO)) {
                 estruturaRaiz = GrowlerNegocio.Iniciargrowler(IdGrowler, TmpIdeal, bAlarmar);
                 //Execução da solicitação de monitoração realizada com sucesso
                 if (estruturaRaiz.IdcErr == 0) {
@@ -416,7 +408,6 @@ public class GrowlerManterActivity extends AppCompatActivity {
             Log.e(TAG, "Erro ao executar GrowlerNegocio.IniciarGrowler", e);
 
         }
-
 
     }
 
@@ -458,7 +449,7 @@ public class GrowlerManterActivity extends AppCompatActivity {
         }
 
     }
-
+/*Teste para verificação de consumo assincrono:
     private void IniciarMonitoracaoGrowlerRetrofit() {
 
         //Utilização de Retrofit para executar o post correspondente
@@ -514,5 +505,5 @@ public class GrowlerManterActivity extends AppCompatActivity {
             Log.e(TAG, "Erro ao realizar o post para inclusão da monitoração do growler", e);
         }
     }
-
+*/
 }

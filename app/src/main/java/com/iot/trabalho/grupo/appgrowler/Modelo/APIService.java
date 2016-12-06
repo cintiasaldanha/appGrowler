@@ -11,6 +11,7 @@ import retrofit2.http.Path;
  * Created by Cintia on 04/12/2016.
  */
 public interface APIService {
+    //Interface para utilização do RETROFIT para consumo de API
 
     String BASE_URL = "http://40.124.9.111/api/Growler/";
 
@@ -33,23 +34,4 @@ public interface APIService {
     @DELETE("EsvaziarGrowler/{id}")
     Call<EstruturaRaiz> excluirMonitoracaoGrowler(@Path("id") String idGrowler);
 
-
-    /*
-    String BASE_URL = "https://parseapi.back4app.com/classes/";
-
-    @Headers({"X-Parse-Application-Id:FWmmldOSRF8GE7jR8424Ex9Tu2ZHLTrggQHLJvjY",
-            "X-Parse-REST-API-Key:RegHHKDEd3qf260q0mGUM7Z7GMsWry79eKsv3Jic"})
-    @GET("Aluno")
-    Call<Alunos> getAlunos();
-
-    @Headers({"X-Parse-Application-Id:FWmmldOSRF8GE7jR8424Ex9Tu2ZHLTrggQHLJvjY",
-            "X-Parse-REST-API-Key:RegHHKDEd3qf260q0mGUM7Z7GMsWry79eKsv3Jic"})
-    @POST("Aluno")
-    Call<AlunoInclusao> incluirAluno(@Body AlunoInclusao alunoInclusao);
-
-    @Headers({"X-Parse-Application-Id:FWmmldOSRF8GE7jR8424Ex9Tu2ZHLTrggQHLJvjY",
-            "X-Parse-REST-API-Key:RegHHKDEd3qf260q0mGUM7Z7GMsWry79eKsv3Jic"})
-    @DELETE("Aluno/{id}")
-    Call<ResponseBody> excluirAluno(@Path("id") String idAluno);
-    */
 }

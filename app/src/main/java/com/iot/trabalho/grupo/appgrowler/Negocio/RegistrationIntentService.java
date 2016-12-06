@@ -33,6 +33,10 @@ public class RegistrationIntentService extends IntentService {
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE);
             Log.i(TAG, "Got GCM Registration Token: " + token);
 
+            //Armazena o token obtido para receber notificação push
+            Global.putStringPrefs(this,Global.PREF_TOKEN_PUSH,token);
+            Global.TOKEN_PUSH=token;
+
             // Storing the registration id that indicates whether the generated token has been
             // sent to your server. If it is not stored, send the token to your server,
             // otherwise your server should have already received the token.
@@ -53,6 +57,8 @@ public class RegistrationIntentService extends IntentService {
                 //sharedPreferences.edit().putString(Global.PREF_REGISTRARION_ID, regID ).apply();
                 Global.putStringPrefs(this, Global.PREF_REGISTRATION_ID,regID);
             } else {
+                //Recupera o token obtido para receber a notificação push
+                Global.TOKEN_PUSH=Global.getStringPrefsByKey(this,Global.PREF_TOKEN_PUSH);
                 resultString = "Previously Registered Successfully - RegId : " + regID;
                 Log.i(TAG, resultString);
             }

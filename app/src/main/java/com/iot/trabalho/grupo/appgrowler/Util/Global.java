@@ -18,10 +18,12 @@ public class Global {
     public static String PREF_NOTIFICAR_VOZ = "NOTIFICAR_VOZ";
     public static String PREF_MONITORAR_LIMPAR_HISTORICO = "ESVAZIAR_LIMPAR_HISTORICO";
     public static String PREF_ESVAZIAR_LIMPAR_HISTORICO = "MONITORAR_LIMPAR_HISTORICO";
+    public static String PREF_TOKEN_PUSH = "TOKEN_PUSH";
     public static String PREF_REGISTRATION_ID = "registrationID";
 
     public static Context activitAnterior;
     public static String mensagemGenerica = "";
+    public static String TOKEN_PUSH;
 
     public static void putStringPrefs(Context ctx, String chave, String valor) {
         SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, 0);
