@@ -288,8 +288,6 @@ public class GrowlerNegocio {
 
         APIService service = retrofit.create(APIService.class);
 
-        // seta objeto
-
         try {
             Call<EstruturaRaiz> call = service.excluirMonitoracaoGrowler(idGrowler.toString());
             Response<EstruturaRaiz> response = call.execute();

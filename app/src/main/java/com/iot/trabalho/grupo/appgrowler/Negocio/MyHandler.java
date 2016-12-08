@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,15 +36,11 @@ public class MyHandler extends NotificationsHandler {
 
     private void sendNotification(String msg) {
 
-/*
-        Intent it = new Intent(context, GrowlerMensagemActivity.class);
-        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        it.putExtra("CHAVE",strIdtGrowler);
-        it.putExtra("TEMP_ATUAL",dblTemperaturaAtualGrowler.toString());
-        it.putExtra("MSG",msg);
-        PendingIntent p = PendingIntent.getActivity(context, Integer.parseInt(strIdtGrowler), it, PendingIntent.FLAG_ONE_SHOT);
-*/
+        /*Código incluído apenas para teste unitário*/
+        if (msg==null)
+            msg="Sua cerveja atingiu a temperatura ideal! Aproveite!!!";
 
+        //Intent correspondente à tela a ser exibida quando o app receber a notificação
         Intent it = new Intent(ctx, GrowlerMensagemActivity.class);
         it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         //it.putExtra("CHAVE",strIdtGrowler);
@@ -51,10 +48,7 @@ public class MyHandler extends NotificationsHandler {
         it.putExtra("MSG",msg);
         PendingIntent p = PendingIntent.getActivity(ctx, Integer.parseInt("13"), it, PendingIntent.FLAG_ONE_SHOT);
 
-
-        //Intent intent = new Intent(ctx, MainActivity.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
+        /*Configuração da notificação a ser apresentada*/
         mNotificationManager = (NotificationManager)
                 ctx.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -64,11 +58,14 @@ public class MyHandler extends NotificationsHandler {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(ctx)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setLargeIcon(BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.ic_launcher))
+                        .setSmallIcon(R.mipmap.ic_growler)
                         .setContentTitle("Growler on the Cloud")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
                         .setSound(defaultSoundUri)
+                        .setAutoCancel(true)
+                        //.setFullScreenIntent(contentIntent,true)
                         .setContentText(msg);
 
         mBuilder.setContentIntent(contentIntent);

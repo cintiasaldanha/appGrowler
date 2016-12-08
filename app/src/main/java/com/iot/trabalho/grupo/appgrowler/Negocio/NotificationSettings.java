@@ -8,10 +8,16 @@ import com.microsoft.windowsazure.notifications.NotificationsHandler;
 public class NotificationSettings extends NotificationsHandler {
 
     /*Id do aplicativo cadastrado no Google Developers Console*/
+    /*//Dados do primeiro ambiente configurado
     public static String SenderId = "753012259939";
     public static String HubName = "hbPedidos";
-    //public static String HubName = "hbscr13";
-    //public static String HubListenConnectionString = "Endpoint=sb://hbscr13.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=7IqJqBmOsvb37ksHdiC9J/s6hdJUh5SHCofJZ1+Voi0=";
-
     public static String HubListenConnectionString ="Endpoint=sb://hbscr13.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=7IqJqBmOsvb37ksHdiC9J/s6hdJUh5SHCofJZ1+Voi0=";
+    */
+
+    /*Id do aplicativo cadastrado no Google Developers Console*/
+    //Dados do segundo ambiente configurado
+    public static String SenderId = "753012259939";
+    public static String HubName = "hbGrowler1";
+    public static String HubListenConnectionString ="Endpoint=sb://hbgrowler.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=XMz34C9T8CKTibcDqwILwtOvnk0ErDpXfFZ6Z8+78EM=";
+
 }

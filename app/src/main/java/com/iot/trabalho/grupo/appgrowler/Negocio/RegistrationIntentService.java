@@ -12,6 +12,10 @@ import com.iot.trabalho.grupo.appgrowler.Util.Global;
 import com.microsoft.windowsazure.messaging.NotificationHub;
 
 public class RegistrationIntentService extends IntentService {
+/*
+    Referência para esta implementação:
+    https://docs.microsoft.com/pt-br/azure/notification-hubs/notification-hubs-android-push-notification-google-gcm-get-started
+*/
 
     private static final String TAG = "RegIntentService>>>>>";
 
@@ -33,7 +37,10 @@ public class RegistrationIntentService extends IntentService {
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE);
             Log.i(TAG, "Got GCM Registration Token: " + token);
 
-            //Armazena o token obtido para receber notificação push
+            /*
+                Armazena o token obtido para receber notificação push
+                e enviar como parâmetro para a monitoração do growler
+            */
             Global.putStringPrefs(this,Global.PREF_TOKEN_PUSH,token);
             Global.TOKEN_PUSH=token;
 
@@ -68,9 +75,6 @@ public class RegistrationIntentService extends IntentService {
             // on a third-party server, this ensures that we'll attempt the update at a later time.
         }
 
-        // Notify UI that registration has completed.
-        //if (MainActivity.isVisible) {
-        //    MainActivity.mainActivity.ToastNotify(resultString);
-        //}
+
     }
 }

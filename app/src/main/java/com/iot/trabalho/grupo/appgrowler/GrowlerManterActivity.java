@@ -44,6 +44,7 @@ public class GrowlerManterActivity extends AppCompatActivity {
     private TextView txtDescricaoCerveja;
     private TextView txtTemperaturaIdeal;
     private final String TAG = ">>>>POST MONITORACAO: ";
+    private final String TAGEsvaziar="EsvaziarGrowler>>:";
 
 
     @Override
@@ -396,11 +397,19 @@ public class GrowlerManterActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
 
+                    /*Alarme substituído pela monitoração na nuvem, com recebimento de push notification
                     if (alarm != null) {
                         alarm.SetAlarm(context, strIdtGrowler, TmpIdeal);
                     } else {
                         Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
                     }
+                    */
+                }
+                else{
+                    String mensagem = "Erro retornado pelo método GrowlerNegocio.IniciarGrowler"
+                                        + estruturaRaiz.CodErr + " " + estruturaRaiz.ExceptionMsg;
+                    Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, mensagem);
                 }
             }
         }
@@ -424,9 +433,23 @@ public class GrowlerManterActivity extends AppCompatActivity {
                 edtDescricaoGrowler.getText().toString(),"", 0, 0,0,0);
 
         if (AlterarGrowler(estGrowlerApp)){
-            //To do: liberar execução do serviço para limpar histórico de temperaturas
-            if (Global.getBooleanPrefsByKey(this,Global.PREF_ESVAZIAR_LIMPAR_HISTORICO))
-                GrowlerNegocio.EsvaziarGrowler(Integer.parseInt(edtIdentificadorGrowler.getText().toString()));
+            //Libera execução do serviço para limpar histórico de temperaturas
+            if (Global.getBooleanPrefsByKey(this,Global.PREF_ESVAZIAR_LIMPAR_HISTORICO)) {
+                EstruturaRaiz estruturaRaiz = GrowlerNegocio.EsvaziarGrowler(Integer.parseInt(edtIdentificadorGrowler.getText().toString()));
+                String mensagem;
+                if (estruturaRaiz.IdcErr==0){
+                    mensagem = "Sucesso ao esvaziar o growler " + chave;
+                    Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show();
+                    Log.e(TAGEsvaziar,mensagem );
+                }
+                else {
+                    mensagem = "Erro retornado pelo método GrowlerNegocio.EsvaziarGrowler"
+                            + estruturaRaiz.CodErr + " " + estruturaRaiz.ExceptionMsg;
+                    Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show();
+                    Log.e(TAGEsvaziar, mensagem);
+                }
+
+            }
         }
 
     }
