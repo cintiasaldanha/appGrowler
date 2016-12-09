@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.iot.trabalho.grupo.appgrowler.Modelo.GrowlerApp;
 import com.iot.trabalho.grupo.appgrowler.Modelo.GrowlerBD;
 import com.iot.trabalho.grupo.appgrowler.Util.ConverterTextoParaVoz;
 import com.iot.trabalho.grupo.appgrowler.Util.Global;
@@ -49,7 +48,7 @@ public class GrowlerMensagemActivity extends AppCompatActivity implements TextTo
             strMensagemFala = extras.getString("MSG");
         }
 
-        //ApresentarMensagem();
+        ApresentarMensagem();
 
         mTts = new TextToSpeech(this, this);
         final String strTexto = "Temperatura ideal atingida";
@@ -89,7 +88,7 @@ public class GrowlerMensagemActivity extends AppCompatActivity implements TextTo
         TextView txtIdtGrowler = (TextView) findViewById(R.id.txtIdtGrowler);
         StringBuilder strGrowler = new StringBuilder();
         StringBuilder strMsg = new StringBuilder();
-
+/*
         growlerBD = new GrowlerBD(context);
 
         GrowlerApp growler = growlerBD.ObterGrowlerApp(Integer.parseInt(strChaveGrowlerAtual));
@@ -100,15 +99,23 @@ public class GrowlerMensagemActivity extends AppCompatActivity implements TextTo
         txtMsg.setText(strMsg);
 
         strMensagemFala = strGrowler + " " + strMsg;
-
+*/
+        //Substituindo tratamento para apresentar mensagem recebida via push
+        txtIdtGrowler.setVisibility(View.GONE);
+        txtMsg.setText(strMensagemFala);
     }
 
     @Override
     public void onInit(int status) {
-        if (somAtivo)
-        //if (Global.getBooleanPrefsByKey(this,Global.PREF_NOTIFICAR_VOZ))
-            ConverterTextoParaVoz.texto(strMensagemFala,mTts,somAtivo);
+        if (somAtivo) {
 
+            Bundle extras = getIntent().getExtras();
+            if (extras!=null) {
+                strMensagemFala = extras.getString("MSG");
+            }
+            //if (Global.getBooleanPrefsByKey(this,Global.PREF_NOTIFICAR_VOZ))
+            ConverterTextoParaVoz.texto(strMensagemFala, mTts, somAtivo);
+        }
     }
 
     private void showCompartilhar() {
