@@ -28,11 +28,11 @@ public interface APIService {
     Call<EstruturaRaizGrowlers> getListaGrowlers();
 
     //Obter dados de um determinado growler
-    @GET("ConsultarGrowlerAtual/")
+    @GET("ConsultarGrowlerAtual/{id}")
     Call<EstruturaRaizGrowler> getGrowlerAtual(@Path("id") String idGrowler);
 
     //Obter histórico de temperatura de um determinado growler
-    @GET("ConsultarHistoricoGrowler/")
+    @GET("ConsultarHistoricoGrowler/{id}")
     Call<EstruturaRaizGrowlers> getHistoricoGrowler(@Path("id") String idGrowler);
 
     //Solicitar início da monitoração do growler

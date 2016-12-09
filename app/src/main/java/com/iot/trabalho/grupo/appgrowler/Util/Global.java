@@ -41,7 +41,7 @@ public class Global {
 
     public static boolean getBooleanPrefsByKey(Context ctx, String chave){
         SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, 0);
-        return prefs.getBoolean(chave, false);
+        return prefs.getBoolean(chave, true);
 
     }
 
