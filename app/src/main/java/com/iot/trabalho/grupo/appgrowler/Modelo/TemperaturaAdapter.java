@@ -51,7 +51,9 @@ public class TemperaturaAdapter extends BaseAdapter {
         txtPercentualBateria.setText(growler.Bateria);
         //txtDataHoraTemperatura.setText(growler.DatahoraAtualizacao);
 
-        txtDataHoraTemperatura.setText(Global.formattedDateFromString("","",growler.DatahoraAtualizacao));
+        //txtDataHoraTemperatura.setText(Global.formattedDateFromString("","",growler.DatahoraAtualizacao));
+
+        txtDataHoraTemperatura.setText(Global.trocaFormatoData(growler.DatahoraAtualizacao,"yyyy-dd-MM hh:mm:ss","dd/MM/yyyy - hh:mm:ss"));
 
         return view;
 

@@ -9,13 +9,14 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <permission android:name=".permission.C2D_MESSAGE" android:protectionLevel="signature" />
-    <uses-permission android:name=".permission.C2D_MESSAGE"/>
+    <permission
+        android:name=".permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
+    <uses-permission android:name=".permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
@@ -64,6 +65,10 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <!-- Conforme https://developers.facebook.com/quickstarts/683441648513003/?platform=android -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <activity
             android:name=".GrowlerMensagemActivity"
@@ -84,6 +89,7 @@
             android:theme="@style/AppTheme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -95,20 +101,21 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
-
         <service
             android:name=".Negocio.RegistrationIntentService"
-            android:exported="false">
-        </service>
+            android:exported="false"></service>
 
-        <receiver android:name="com.microsoft.windowsazure.notifications.NotificationsBroadcastReceiver"
+        <receiver
+            android:name="com.microsoft.windowsazure.notifications.NotificationsBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-               <category android:name=".Negocio" />
+
+                <category android:name=".Negocio" />
             </intent-filter>
         </receiver>
 
+        <activity android:name=".LoginIntegradoActivity"></activity>
     </application>
 
 </manifest>

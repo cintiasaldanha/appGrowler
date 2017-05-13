@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Meu Growler</string>
+    <string name="app_name">No Grau</string>
     <string name="action_settings">Configurações</string>
     <string name="action_excluir">Excluir</string>
     <string name="action_salvar">Salvar</string>
     <string name="action_monitorar">Monitorar</string>
     <string name="action_listarhistorico">Histórico</string>
-    <string name="titulo_MainActivity">Meu Growler</string>
+    <string name="titulo_MainActivity">No Grau</string>
     <string name="title_activity_growler_manter">Growler</string>
     <string name="title_activity_growler_historico">Temperaturas</string>
     <string name="title_activity_growler_consultar">Detalhes</string>
@@ -18,4 +18,5 @@
     <string name="title_activity_growler_config">Configurações</string>
     <string name="title_activity_growler_mensagem">Meu Growler</string>
     <string name="action_compartilhar">Compartilhar</string>
+    <string name="facebook_app_id">683441648513003</string>
 </resources>

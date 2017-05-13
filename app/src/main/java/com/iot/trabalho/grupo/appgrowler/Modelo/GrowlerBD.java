@@ -76,7 +76,7 @@ public class GrowlerBD extends SQLiteOpenHelper {
                          Integer.parseInt(cursor.getString(5)),(cursor.getString(6)!=null?Double.parseDouble(cursor.getString(6)):0)));
 
         }
-        //Lembre-se de sempre fechar o cursor
+        //Fecha o cursor
         cursor.close();
         sqlDB.close();
 

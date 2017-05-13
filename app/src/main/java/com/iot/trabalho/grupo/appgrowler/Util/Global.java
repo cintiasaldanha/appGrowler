@@ -87,9 +87,32 @@ public class Global {
             parsed = df_input.parse(inputDate);
             outputDate = df_output.format(parsed);
         } catch (Exception e) {
+            outputDate=inputDate;
             Log.e("formattedDateFromString", "Exception in formateDateFromstring(): " + e.getMessage());
         }
         return outputDate;
+    }
+
+    public static String trocaFormatoData(String data, String formatoDeEntrada, String formatoDeSaida) {
+
+        SimpleDateFormat dateFormatEntrada = new SimpleDateFormat(formatoDeEntrada);
+        SimpleDateFormat dateFormatSaida = new SimpleDateFormat(formatoDeSaida);
+
+        Date dataOriginal = null;
+        String dataTrocada = null;
+
+        try {
+            //Transforma a String em Date
+            dataOriginal = dateFormatEntrada.parse(data);
+            //Transforma a Date num String com o formato pretendido
+            dataTrocada = dateFormatSaida.format(dataOriginal);
+        } catch (Exception e) {
+            //Erro se não foi possível fazer o parse da Data
+            dataTrocada=data;
+            e.printStackTrace();
+            Log.e("trocaFormatoData", "Exception in trocaFormatoData(): " + e.getMessage());
+        }
+        return dataTrocada;
     }
 }
 

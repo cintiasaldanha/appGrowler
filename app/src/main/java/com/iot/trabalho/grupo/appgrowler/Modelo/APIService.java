@@ -21,7 +21,10 @@ public interface APIService {
     //url raiz WebApi: http://growlermonitor.cloudapp.net/api
     //IP do Servidor WebAPI: 13.85.84.69
     //url raiz WebApi com IP: http://13.85.84.69/api
-    String BASE_URL = "http://growlermonitor.cloudapp.net/api/Growler/";
+    //String BASE_URL = "http://growlermonitor.cloudapp.net/api/Growler/";
+
+    /*URL do ambiente configurado com a conta fornecida pelo programa Microsoft BizSpark*/
+    String BASE_URL = "http://growlerservicecloud01.cloudapp.net/api/Growler/";
 
     //Obter lista de growlers cadastrados
     @GET("LerGarrafas/")

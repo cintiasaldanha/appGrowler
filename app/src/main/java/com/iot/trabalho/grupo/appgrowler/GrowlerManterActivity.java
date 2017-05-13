@@ -1,9 +1,11 @@
 package com.iot.trabalho.grupo.appgrowler;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -45,7 +47,7 @@ public class GrowlerManterActivity extends AppCompatActivity {
     private TextView txtTemperaturaIdeal;
     private final String TAG = ">>>>POST MONITORACAO: ";
     private final String TAGEsvaziar="EsvaziarGrowler>>:";
-
+    EstruturaRaiz estruturaRaizIniciarMonitoracao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class GrowlerManterActivity extends AppCompatActivity {
         txtTemperaturaIdeal = (TextView) findViewById(R.id.txtTemperaturaIdeal);
         btnLerQrCode = (Button) findViewById(R.id.btnLerQrCode);
         //btnHistorico = (Button) findViewById(R.id.btnHistorico);
+
 
         //Recebe a ação a ser realizada na interface
         Bundle extras = getIntent().getExtras();
@@ -122,6 +125,7 @@ public class GrowlerManterActivity extends AppCompatActivity {
 
         } else {
             super.onActivityResult(requestCode,resultCode,data);
+
         }
 
     }
@@ -184,13 +188,14 @@ public class GrowlerManterActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //to do cintia
-                                IniciarMonitoracaoGrowler();
+                                new AsyncCallerIniciarMonitoracao().execute();
+                                //IniciarMonitoracaoGrowler();
                                 //IniciarMonitoracaoGrowlerRetrofit();
                                 ///
                                 //((Activity)context).finish();
                                 //Intent intent = new Intent(context, MainActivity.class);
                                 //context.startActivity(intent);
-                                finish();
+                                //finish();
                             }
                         });
 
@@ -384,33 +389,12 @@ public class GrowlerManterActivity extends AppCompatActivity {
         Integer IdGrowler = Integer.parseInt(strIdtGrowler);
         Double TmpIdeal = Double.parseDouble(edtVlrTemperaturaIdeal.getText().toString());
         Boolean bAlarmar = (chkAlarmeTemperatura.isChecked());
-        EstruturaRaiz estruturaRaiz;
+        //EstruturaRaiz estruturaRaizIniciarMonitoracao;
 
         try {
             if (Global.getBooleanPrefsByKey(this, Global.PREF_MONITORAR_LIMPAR_HISTORICO)) {
-                estruturaRaiz = GrowlerNegocio.Iniciargrowler(IdGrowler, TmpIdeal, bAlarmar);
-                //Execução da solicitação de monitoração realizada com sucesso
-                if (estruturaRaiz.IdcErr == 0) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Alteração realizada com sucesso. Iniciando monitoração do Growler " + strIdtGrowler + " !";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                estruturaRaizIniciarMonitoracao = GrowlerNegocio.Iniciargrowler(IdGrowler, TmpIdeal, bAlarmar);
 
-                    /*Alarme substituído pela monitoração na nuvem, com recebimento de push notification
-                    if (alarm != null) {
-                        alarm.SetAlarm(context, strIdtGrowler, TmpIdeal);
-                    } else {
-                        Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
-                    }
-                    */
-                }
-                else{
-                    String mensagem = "Erro retornado pelo método GrowlerNegocio.IniciarGrowler"
-                                        + estruturaRaiz.CodErr + " " + estruturaRaiz.ExceptionMsg;
-                    Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, mensagem);
-                }
             }
         }
         catch (Exception e) {
@@ -420,6 +404,30 @@ public class GrowlerManterActivity extends AppCompatActivity {
 
     }
 
+    private void AvaliarRetornoSolicitacaoMonitoracaoGrowler(){
+        //Execução da solicitação de monitoração realizada com sucesso
+        if (estruturaRaizIniciarMonitoracao.IdcErr == 0) {
+            Context context = getApplicationContext();
+            CharSequence text = "Alteração realizada com sucesso. Iniciando monitoração do Growler " + strIdtGrowler + " !";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+                    /*Alarme substituído pela monitoração na nuvem, com recebimento de push notification
+                    if (alarm != null) {
+                        alarm.SetAlarm(context, strIdtGrowler, TmpIdeal);
+                    } else {
+                        Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
+                    }
+                    */
+        }
+        else{
+            String mensagem = "Erro retornado pelo método GrowlerNegocio.IniciarGrowler"
+                    + estruturaRaizIniciarMonitoracao.CodErr + " " + estruturaRaizIniciarMonitoracao.ExceptionMsg;
+            Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show();
+            Log.e(TAG, mensagem);
+        }
+    }
     private void EsvaziarGrowler(final String chave) {
         //Integer IdGrowler = Integer.parseInt(chave);
 
@@ -469,6 +477,40 @@ public class GrowlerManterActivity extends AppCompatActivity {
                     _menu.findItem(R.id.action_historico).setVisible(false);
             }
 
+        }
+
+    }
+
+    private class AsyncCallerIniciarMonitoracao extends AsyncTask<Void, Void, Void>
+    {
+        ProgressDialog pdLoading = new ProgressDialog(GrowlerManterActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            //this method will be running on UI thread
+            pdLoading.setMessage("\tSolicitando monitoração...");
+            pdLoading.show();
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            //this method will be running on background thread so don't update UI frome here
+            //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
+
+            IniciarMonitoracaoGrowler();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            //this method will be running on UI thread
+            AvaliarRetornoSolicitacaoMonitoracaoGrowler();
+            pdLoading.dismiss();
+            finish();
         }
 
     }

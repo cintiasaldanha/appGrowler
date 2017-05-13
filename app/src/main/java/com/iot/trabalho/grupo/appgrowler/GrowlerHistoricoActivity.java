@@ -1,11 +1,14 @@
 package com.iot.trabalho.grupo.appgrowler;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +28,8 @@ public class GrowlerHistoricoActivity extends AppCompatActivity {
     private String strChaveGrowlerAtual;
     public TemperaturaAdapter temperaturaAdapter;
     private ListView lvwTemperaturas;
+    private EstruturaRaizGrowlers Growlers;
+    private final String TAG = ">>>GROWLER-->HISTORICO:";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,8 @@ public class GrowlerHistoricoActivity extends AppCompatActivity {
             }
         });
 
-        showHistoricoGrowler();
+        //showHistoricoGrowler();
+        new AsyncCallerConsultarHistoricoGrowler().execute();
     }
 
     @Override
@@ -65,15 +71,25 @@ public class GrowlerHistoricoActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
-            Toast.makeText(context, "Atualizando lista...", Toast.LENGTH_SHORT).show();
-            showHistoricoGrowler();
+            //Toast.makeText(context, "Atualizando lista...", Toast.LENGTH_SHORT).show();
+            //showHistoricoGrowler();
+            new AsyncCallerConsultarHistoricoGrowler().execute();
         }
 
         return super.onOptionsItemSelected(item);
     }
+    private void consultarHistoricoGrowler(){
+
+        try {
+            Growlers = GrowlerNegocio.ConsultarHistoricoGrowler(strChaveGrowlerAtual);
+        }
+        catch (Exception e) {
+            Log.e(TAG, "Erro ao executar GrowlerNegocio.IniciarGrowler", e);
+        }
+    }
 
     private void showHistoricoGrowler() {
-        EstruturaRaizGrowlers Growlers  = GrowlerNegocio.ConsultarHistoricoGrowler(strChaveGrowlerAtual);
+        //EstruturaRaizGrowlers Growlers  = GrowlerNegocio.ConsultarHistoricoGrowler(strChaveGrowlerAtual);
         List<Growler> lst=null;
 
         if (Growlers.IdcErr==0){
@@ -123,4 +139,37 @@ public class GrowlerHistoricoActivity extends AppCompatActivity {
         //strMsg = lst.get(0).Id + " " + lst.get(0).Temperatura;
     }
 */
+
+    private class AsyncCallerConsultarHistoricoGrowler extends AsyncTask<Void, Void, Void>
+    {
+        ProgressDialog pdLoading = new ProgressDialog(GrowlerHistoricoActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            //this method will be running on UI thread
+            pdLoading.setMessage("\tObtendo dados...");
+            pdLoading.show();
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            //this method will be running on background thread so don't update UI frome here
+            //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
+
+            consultarHistoricoGrowler();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            //this method will be running on UI thread
+            showHistoricoGrowler();
+            pdLoading.dismiss();
+        }
+
+    }
 }

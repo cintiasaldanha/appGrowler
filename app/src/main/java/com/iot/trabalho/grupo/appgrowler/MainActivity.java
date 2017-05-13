@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -167,9 +168,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(it);
         }
         else if (id == R.id.action_refresh){
-            Toast.makeText(context, "Atualizando lista...", Toast.LENGTH_SHORT).show();
-            growlerBD.atualizarTemperaturas();
-            showLista();
+            //Toast.makeText(context, "Atualizando lista...", Toast.LENGTH_SHORT).show();
+            new AsyncCallerAtualizarTemperaturas().execute();
+            //growlerBD.atualizarTemperaturas();
+            //showLista();
         }
         else if (id == R.id.action_edit){
             strGrowlerItemSelecionado = ObterGrowlerSelecionado();
@@ -372,6 +374,37 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private class AsyncCallerAtualizarTemperaturas extends AsyncTask<Void, Void, Void>
+    {
+        ProgressDialog pdLoading = new ProgressDialog(MainActivity.this);
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            //this method will be running on UI thread
+            pdLoading.setMessage("\tObtendo dados...");
+            pdLoading.show();
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            //this method will be running on background thread so don't update UI frome here
+            //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
+
+            growlerBD.atualizarTemperaturas();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            //this method will be running on UI thread
+            showLista();
+            pdLoading.dismiss();
+        }
+
+    }
 
 }

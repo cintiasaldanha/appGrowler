@@ -75,6 +75,5 @@ public class RegistrationIntentService extends IntentService {
             // on a third-party server, this ensures that we'll attempt the update at a later time.
         }
 
-
     }
 }
