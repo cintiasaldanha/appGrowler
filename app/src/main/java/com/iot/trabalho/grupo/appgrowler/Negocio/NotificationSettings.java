@@ -27,13 +27,4 @@ public class NotificationSettings extends NotificationsHandler {
     public static String HubName = "hbngrowler";
     public static String HubListenConnectionString ="Endpoint=sb://hbngrowler.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=odsdeSXsZpcLHErz9nfmGiJ82uVCC9BjBOvivAgW5JE=";
 
-
-    /*Id do aplicativo cadastrado no Google Developers Console*/
-    //Dados do ambiente Azure configurado através da conta Microsoft BizSpark
-    //Ajustado para disciplina de Segurança
-/*    public static String SenderId = "753012259939";
-    public static String HubName = "hbngrowler";
-    public static String HubListenConnectionString ="Endpoint=sb://hbngrowler.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=odsdeSXsZpcLHErz9nfmGiJ82uVCC9BjBOvivAgW5JE=";
-*/
-
 }

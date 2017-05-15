@@ -26,39 +26,41 @@ public class Global {
     public static String TOKEN_PUSH;
 
     public static void putStringPrefs(Context ctx, String chave, String valor) {
-        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, 0);
+        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, ctx.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(chave, valor);
         editor.commit();
     }
 
+    public static String getStringPrefsByKey(Context ctx, String chave){
+        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, ctx.MODE_PRIVATE);
+        return prefs.getString(chave, "");
+    }
+
     public static void putBooleanPrefs(Context ctx, String chave, boolean valor){
-        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, 0);
+        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, ctx.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(chave, valor);
         editor.commit();
     }
 
-    public static boolean getBooleanPrefsByKey(Context ctx, String chave){
-        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, 0);
-        return prefs.getBoolean(chave, true);
-
-    }
-
-    public static String getStringPrefsByKey(Context ctx, String chave){
-        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, 0);
-        return prefs.getString(chave, "");
-    }
-
     public static void putLongPrefs(Context ctx, String chave, long valor){
-        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, 0);
+        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, ctx.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putLong(chave, valor);
         editor.commit();
     }
 
+    public static boolean getBooleanPrefsByKey(Context ctx, String chave){
+        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, ctx.MODE_PRIVATE);
+        return prefs.getBoolean(chave, true);
+
+    }
+
+
+
     public static long getLongPrefsByKey(Context ctx, String chave){
-        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, 0);
+        SharedPreferences prefs = ctx.getSharedPreferences(PREF_FILE_NAME, ctx.MODE_PRIVATE);
         return prefs.getLong(chave,1);
 
     }
