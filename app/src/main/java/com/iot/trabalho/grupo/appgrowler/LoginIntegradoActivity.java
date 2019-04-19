@@ -51,9 +51,13 @@ public class LoginIntegradoActivity extends AppCompatActivity {
         }
         else {
                 /*todo: Retirar linha antes de gerar versão definitiva*/
-                /////LoginManager.getInstance().logOut();
+                ////LoginManager.getInstance().logOut();
                 //
-                apresentarActitivyPrincipal();
+            //todo: Remover após tratar adequadamente casos de teste de login do app
+            //Comentado para verificar se projeto de teste funciona
+                ///apresentarActitivyPrincipal();
+            //Incluído para verificar se projeto de teste funciona:
+            apresentarLoginUsuario();
         }
 
 /**/

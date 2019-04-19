@@ -406,12 +406,13 @@ public class GrowlerManterActivity extends AppCompatActivity {
 
     private void AvaliarRetornoSolicitacaoMonitoracaoGrowler(){
         //Execução da solicitação de monitoração realizada com sucesso
-        if (estruturaRaizIniciarMonitoracao.IdcErr == 0) {
-            Context context = getApplicationContext();
-            CharSequence text = "Alteração realizada com sucesso. Iniciando monitoração do Growler " + strIdtGrowler + " !";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+        try {
+            if (estruturaRaizIniciarMonitoracao.IdcErr == 0) {
+                Context context = getApplicationContext();
+                CharSequence text = "Alteração realizada com sucesso. Iniciando monitoração do Growler " + strIdtGrowler + " !";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
 
                     /*Alarme substituído pela monitoração na nuvem, com recebimento de push notification
                     if (alarm != null) {
@@ -420,12 +421,18 @@ public class GrowlerManterActivity extends AppCompatActivity {
                         Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
                     }
                     */
+            } else {
+                String mensagem = "Erro retornado pelo método GrowlerNegocio.IniciarGrowler"
+                        + estruturaRaizIniciarMonitoracao.CodErr + " " + estruturaRaizIniciarMonitoracao.ExceptionMsg;
+                Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show();
+                Log.e(TAG, mensagem);
+            }
         }
-        else{
-            String mensagem = "Erro retornado pelo método GrowlerNegocio.IniciarGrowler"
-                    + estruturaRaizIniciarMonitoracao.CodErr + " " + estruturaRaizIniciarMonitoracao.ExceptionMsg;
+        catch (Exception e) {
+            String mensagem = "Erro ao executar  método GrowlerNegocio.IniciarGrowler";
             Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show();
             Log.e(TAG, mensagem);
+
         }
     }
     private void EsvaziarGrowler(final String chave) {

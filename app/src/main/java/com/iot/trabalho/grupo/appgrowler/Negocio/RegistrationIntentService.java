@@ -70,7 +70,7 @@ public class RegistrationIntentService extends IntentService {
                 Log.i(TAG, resultString);
             }
         } catch (Exception e) {
-            Log.e(TAG, resultString="Failed to complete token refresh", e);
+            Log.e(TAG, resultString="Failed to complete token refresh or hub register", e);
             // If an exception happens while fetching the new token or updating our registration data
             // on a third-party server, this ensures that we'll attempt the update at a later time.
         }
